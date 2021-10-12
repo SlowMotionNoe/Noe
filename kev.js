@@ -4329,7 +4329,7 @@ if (isMedia && !vin.message.videoMessage || isQuotedImage) {
 
       const mediadora = await kev.downloadAndSaveMediaMessage(enckk, `./sticker/${senderfix}`)
 const mo45ql = {
-        type: 'full',
+        type: 'crop',
         pack: `.`,
         author: '',
         categories: [
