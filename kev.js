@@ -4277,9 +4277,9 @@ case 'stest':
       const stickertest = isQuotedImage ? JSON.parse(JSON.stringify(vin).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo : vin
       const stickermedia = await kev.downloadAndSaveMediaMessage(stickertest, `./sticker/${senderfix}`)
             var conekk = require('imgbb-uploader')
-            conekk('3b8594f4cb11895f4084291bc655e510', makaka)
+            conekk('3b8594f4cb11895f4084291bc655e510', stickermedia)
             .then(data => {
-            ibb = fs.readFileSync(makaka)
+            ibb = fs.readFileSync(stickermedia)
             sendStickerUrl(from, `${data.display_url}`)
             })
             .catch(err => {
