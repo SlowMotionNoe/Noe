@@ -4307,7 +4307,7 @@ reply(`Envíe una foto/video + el comando ${prefix}sticker2\n\nTambién funciona
 break
 case 'testf':
 if ((isQuotedImage2 && isImage) && (isQuotedVideo2 && isVideo)) {
-      const media33e = await kev.downloadAndSaveMediaMessage(mediabuffer, `./sticker/${senderfix}`)
+      const media33e = await kev.downloadAndSaveMediaMessage(buffermedia, `./sticker/${senderfix}`)
       const MatadataFix333 = {
         type: 'full',
         pack: `.`,
