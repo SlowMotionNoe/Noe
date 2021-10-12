@@ -167,7 +167,7 @@ let _scommand = JSON.parse(fs.readFileSync('./database/scommand.json'))
         const antifake = JSON.parse(fs.readFileSync('./src/antifake.json'));
         const antiarabes = JSON.parse(fs.readFileSync('./src/antiarabes.json'));
         const antilink = JSON.parse(fs.readFileSync("./database/antilink.json"));
-        const { addcmd, getcmd, getcmdpos } = require('../lib/setcmd')
+        const { addcmd, getcmd, getcmdpos } = require('./lib/setcmd.js')
         stickerdb = JSON.parse(fs.readFileSync('./database/stickerdb.json'))
 //
 
