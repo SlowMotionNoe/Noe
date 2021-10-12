@@ -4338,7 +4338,7 @@ const mo45ql = {
             '??'
         ]
         }
-      const sticker5s = await new Sticker(`./sticker/${senderfix}`, mo45ql).build()
+      const sticker5s = await new Sticker(mediadora, mo45ql).build()
 kev.sendMessage(from, sticker5s, MessageType.sticker, {quoted: vin, sendEphemeral: true, contextInfo: {"forwardingScore": 9999, "isForwarded": true}})
 fs.unlinkSync(mediadora)
 fs.unlinkSync(`./sticker/${senderfix}.webp`)
