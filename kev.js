@@ -4271,7 +4271,20 @@ fs.unlinkSync(`./sticker/${senderfix}.webp`)
 reply(`Envíe una foto/video + el comando ${prefix}sticker2\n\nTambién funciona si mencionas una foto o video junto al mismo comando\n\nNota: La duración máxima del video es de 10 segundos`)
 }
 break
-
+case 'stest':
+        if (!isGroup)return reply('_Lo lamento, el bot no tiene permitodo usar sus comandos en chats privados, intentalo de nuevo pero dentro de algún grupo._')
+        if (isMedia && !vin.message.videoMessage || isQuotedImage) {
+      const stickertest = isQuotedImage ? JSON.parse(JSON.stringify(vin).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo : vin
+      const stickermedia = await kev.downloadAndSaveMediaMessage(stickertest, `./sticker/${senderfix}`)
+      sendStickerUrl(from, stickermedia)
+} else if ((isMedia && vin.message.videoMessage.fileLength < 10000000 || isQuotedVideo && vin.message.extendedTextMessage.contextInfo.quotedMessage.videoMessage.fileLength < 10000000)) {
+      const stickertest2 = isQuotedVideo ? JSON.parse(JSON.stringify(vin).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo : vin
+      const stickermedia2 = await kev.downloadAndSaveMediaMessage(stickertest2, `./sticker/${senderfix}`)
+      sendStickerUrl(from, stickermedia2)
+      } else {
+      reply(`Envíe una foto/video + el comando ${prefix}sticker\n\nTambién funciona si mencionas una foto o video junto al mismo comando\n\nNota: La duración máxima del video es de 10 segundos`)
+                }
+break
     case 'sticker':
         case 'stiker':
         case 's':
