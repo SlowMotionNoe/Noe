@@ -4553,6 +4553,7 @@ aloja = q
 res = await wikikev(aloja).catch(e => {
 return reply('[ ! ] Error No Encontré Nada') 
 }) 
+wikith = await getBuffer(`https://nurutomo.herokuapp.com/api/ssweb?url=https://es.m.wikipedia.org/w/index.php?search=${q}`)
 result = `･:.｡.･･:.｡.･･:.｡.･･:.｡.･･:.｡.･･
 
    <WIKIPEDIA BÚSQUEDA/>
@@ -4568,7 +4569,7 @@ buttons = [{
                     "type": "RESPONSE"
                 }]
 Mek = fs.readFileSync('./media/wikipedia.jpg')
-imageMessage = (await kev.prepareMessage(from, Mek, 'imageMessage',{ quoted: vin})).message.imageMessage
+imageMessage = (await kev.prepareMessage(from, wikith, 'imageMessage',{ quoted: vin})).message.imageMessage
 buttonsMessage = { contentText: result,
 footerText: `             由凱文創建`,
 imageMessage,
