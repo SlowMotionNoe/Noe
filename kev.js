@@ -4307,6 +4307,29 @@ fs.unlinkSync(`./sticker/${senderfix}.webp`)
 reply(`Envíe una foto/video + el comando ${prefix}sticker2\n\nTambién funciona si mencionas una foto o video junto al mismo comando\n\nNota: La duración máxima del video es de 10 segundos`)
 }
 break
+case 'cashh':
+                    if ((isQuotedVideo || isQuotedImage) && args.length == 0) {
+                        const mediadiadia = isQuotedImage || isQuotedVideo ? JSON.parse(JSON.stringify(vin).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo : vin
+                        var filepath = await kev.downloadAndSaveMediaMessage(mediadiadia, getRandom())
+                        var randomName = getRandom('.webp')
+                        ffmpeg(`./${filepath}`)
+                            .input(filepath)
+                            .on('error', () => {
+                                fs.unlinkSync(filepath)
+                                reply('Terjadi kesalahan saat mengconvert sticker.')
+                            })
+                            .on('end', () => {
+                                kev.sendMessage(from, fs.readFileSync(randomName), sticker, { quoted: vin })
+                                fs.unlinkSync(filepath)
+                                fs.unlinkSync(randomName)
+                            })
+                            .addOutputOptions([`-vcodec`, `libwebp`, `-vf`, `scale='min(320,iw)':min'(320,ih)':force_original_aspect_ratio=decrease,fps=15, pad=320:320:-1:-1:color=white@0.0, split [a][b]; [a] palettegen=reserve_transparent=on:transparency_color=ffffff [p]; [b][p] paletteuse`])
+                            .toFormat('webp')
+                            .save(randomName)
+                    } else {
+                        reply(`Kirim gambar dengan caption ${prefix}sticker atau tag gambar yang sudah dikirim`)
+                    }
+                    break
 case 'testa':
                     if ((isMedia && !vin.message.videoMessage || isQuotedImage)) {
                         const encmedia = isQuotedImage ? JSON.parse(JSON.stringify(vin).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo : vin
