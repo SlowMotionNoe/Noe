@@ -2245,7 +2245,7 @@ case 'eliminarcmd':
 case 'delcmd':{
 if (!vin.key.fromMe && !isOwner) return
 //if (!isQuotedSticker) return reply(`reply stickernya`)
-var kodenya = sen.message.extendedTextMessage.contextInfo.quotedMessage.stickerMessage.fileSha256.toString('hex')
+var kodenya = vin.message.extendedTextMessage.contextInfo.quotedMessage.stickerMessage.fileSha256.toString('hex')
 diti = [];
 for(let i of stickerdb){
     diti.push(i.id)
