@@ -4307,6 +4307,34 @@ fs.unlinkSync(`./sticker/${senderfix}.webp`)
 reply(`Envíe una foto/video + el comando ${prefix}sticker2\n\nTambién funciona si mencionas una foto o video junto al mismo comando\n\nNota: La duración máxima del video es de 10 segundos`)
 }
 break
+case 'testa':
+                    if ((isMedia && !vin.message.videoMessage || isQuotedImage)) {
+                        const encmedia = isQuotedImage ? JSON.parse(JSON.stringify(vin).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo : vin
+                        filePath = await kev.downloadAndSaveMediaMessage(encmedia, filename = getRandom());
+                        file_name = getRandom(".webp")
+                        ini_txt = 'Kevin Bot'
+                        tod = 'Create By : Kevin'
+                        request({
+                            url: `https://api.lolhuman.xyz/api/convert/towebpauthor?apikey=HIRO`,
+                            method: 'POST',
+                            formData: {
+                                "img": fs.createReadStream(filePath),
+                                "package": ini_txt,
+                                "author": tod
+                            },
+                            encoding: "binary"
+                        }, function(error, response, body) {
+                            fs.unlinkSync(filePath)
+                            fs.writeFileSync(file_name, body, "binary")
+                            ini_buff = fs.readFileSync(file_name)
+                            kev.sendMessage(from, ini_buff, sticker, { quoted: vin }).then(() => {
+                                fs.unlinkSync(file_name)
+                            })
+                        });
+                    } else {
+                        reply(`MENCIONA UNA IMAGEN O UN VIDEO`)
+                    }
+                    break
 case 'testf':
 if (isMedia && !vin.message.videoMessage || isQuotedImage) {
       const encmediacd3 = isQuotedImage ? JSON.parse(JSON.stringify(vin).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo : vin
