@@ -4306,9 +4306,8 @@ reply(`Envíe una foto/video + el comando ${prefix}sticker2\n\nTambién funciona
 }
 break
 case 'testf':
-if (isMedia && !vin.message.videoMessage || isQuotedImage) {
-      const encmediacd3 = isQuotedImage ? JSON.parse(JSON.stringify(vin).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo : vin
-      const media33e = await kev.downloadAndSaveMediaMessage(encmediacd3, `./sticker/${senderfix}`)
+if ((isQuotedImage2 && isImage) && (isQuotedVideo2 && isVideo)) {
+      const media33e = await kev.downloadAndSaveMediaMessage(mediabuffer, `./sticker/${senderfix}`)
       const MatadataFix333 = {
         type: 'full',
         pack: `.`,
