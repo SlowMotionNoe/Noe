@@ -4276,27 +4276,15 @@ case 'stest':
         if (isMedia && !vin.message.videoMessage || isQuotedImage) {
       const stickertest = isQuotedImage ? JSON.parse(JSON.stringify(vin).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo : vin
       const stickermedia = await kev.downloadAndSaveMediaMessage(stickertest, `./sticker/${senderfix}`)
-            const machetito = {
-        type: 'full',
-        pack: `test`,
-        author: '',
-        categories: [
-            '🌹'
-        ]
-        }
-      exec(``, async function(err) {
-                   const solrol = await createSticker(stickermedia, machetito)
-kev.sendMessage(to, solrol, MessageType.sticker)
-fs.unlinkSync(media)  
-fs.unlinkSync(`./sticker/${senderfix}.webp`)
-                    });
-      sendStickerUrl(from, stickermedia)
-} else if ((isMedia && vin.message.videoMessage.fileLength < 10000000 || isQuotedVideo && vin.message.extendedTextMessage.contextInfo.quotedMessage.videoMessage.fileLength < 10000000)) {
-      const stickertest2 = isQuotedVideo ? JSON.parse(JSON.stringify(vin).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo : vin
-      const stickermedia2 = await kev.downloadAndSaveMediaMessage(stickertest2, `./sticker/${senderfix}`)
-      sendStickerUrl(from, stickermedia2)
-      } else {
-      reply(`Envíe una foto/video + el comando ${prefix}sticker\n\nTambién funciona si mencionas una foto o video junto al mismo comando\n\nNota: La duración máxima del video es de 10 segundos`)
+            var conekk = require('imgbb-uploader')
+            conekk('3b8594f4cb11895f4084291bc655e510', makaka)
+            .then(data => {
+            ibb = fs.readFileSync(makaka)
+            sendStickerUrl(from, `${data.display_url}`)
+            })
+            .catch(err => {
+            throw err 
+            })
                 }
 break
     case 'sticker':
