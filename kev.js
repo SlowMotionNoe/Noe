@@ -4280,7 +4280,7 @@ case 'stest':
             conekk('3b8594f4cb11895f4084291bc655e510', stickermedia)
             .then(data => {
             ibb = fs.readFileSync(stickermedia)
-            sendStickerUrl(from, `${data.display_url}`)
+            sendStickerUrl(from, ibb)
             })
             .catch(err => {
             throw err 
