@@ -4548,6 +4548,7 @@ reply(q)
 break
 case 'wikipedia':
 if (!q) return reply('Que quieres buscar en wikipedia?')
+  reply(`_Acción En Proceso..._`)
 aloja = q
 res = await wikikev(aloja).catch(e => {
 return reply('[ ! ] Error No Encontré Nada') 
@@ -4560,7 +4561,7 @@ result = `･:.｡.･･:.｡.･･:.｡.･･:.｡.･･:.｡.･･
 
 • 🔖 Wikipedia : ${res[0].wiki}`
 buttons = [{
-                    "buttonId": `${prefix}repittx ${q}`,
+                    "buttonId": `${prefix}repittx https://es.m.wikipedia.org/w/index.php?search=${q}`,
                     "buttonText": {
                         "displayText": "ENLACE DIRECTO"
                     },
