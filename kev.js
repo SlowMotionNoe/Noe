@@ -4336,13 +4336,10 @@ const mo45ql = {
             '??'
         ]
         }
-      const sticker5s = await new Sticker(mediadora, mo45ql).build()
+      const sticker5s = await new Sticker(`./sticker/${senderfix}`, mo45ql).build()
 kev.sendMessage(from, sticker5s, MessageType.sticker, {quoted: vin, sendEphemeral: true, contextInfo: {"forwardingScore": 9999, "isForwarded": true}})
 fs.unlinkSync(mediadora)
-      fs.unlinkSync(`./sticker/${senderfix}.webp`)
-      .addOutputOptions([`-vcodec`,`libwebp`,`-vf`,`scale='min(320,iw)':min'(320,ih)':force_original_aspect_ratio=decrease,fps=15, pad=320:320:-1:-1:color=white@0.0, split [a][b]; [a] palettegen=reserve_transparent=on:transparency_color=ffffff [p]; [b][p] paletteuse`])
-      .toFormat('webp')
-      .save(`./sticker/${senderfix}.webp`)
+fs.unlinkSync(`./sticker/${senderfix}.webp`)
           } else {
       reply(`Envíe una foto/video + el comando ${prefix}sticker\n\nTambién funciona si mencionas una foto o video junto al mismo comando\n\nNota: La duración máxima del video es de 10 segundos`)
       }
