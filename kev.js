@@ -4307,7 +4307,7 @@ reply(`Envíe una foto/video + el comando ${prefix}sticker2\n\nTambién funciona
 break
 case 'testf':
                 if ((isQuotedImage2 && isImage) && (isQuotedVideo2 && isVideo)) return await reply('menciona un sticker?')
-                var filepath = await kev.downloadAndSaveMediaMessage(media, filename)
+                var filepath = await kev.downloadAndSaveMediaMessage(buffermedia, filename)
                 var randomName = getRandomExt('.webp')
                 ffmpeg(`./${filepath}`)
                     .input(filepath)
