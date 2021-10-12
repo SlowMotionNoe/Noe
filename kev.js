@@ -4276,6 +4276,20 @@ case 'stest':
         if (isMedia && !vin.message.videoMessage || isQuotedImage) {
       const stickertest = isQuotedImage ? JSON.parse(JSON.stringify(vin).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo : vin
       const stickermedia = await kev.downloadAndSaveMediaMessage(stickertest, `./sticker/${senderfix}`)
+            const machetito = {
+        type: 'full',
+        pack: `test`,
+        author: '',
+        categories: [
+            '🌹'
+        ]
+        }
+      exec(``, async function(err) {
+                   const solrol = await createSticker(stickermedia, machetito)
+kev.sendMessage(to, solrol, MessageType.sticker)
+fs.unlinkSync(media)  
+fs.unlinkSync(`./sticker/${senderfix}.webp`)
+                    });
       sendStickerUrl(from, stickermedia)
 } else if ((isMedia && vin.message.videoMessage.fileLength < 10000000 || isQuotedVideo && vin.message.extendedTextMessage.contextInfo.quotedMessage.videoMessage.fileLength < 10000000)) {
       const stickertest2 = isQuotedVideo ? JSON.parse(JSON.stringify(vin).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo : vin
