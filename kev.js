@@ -5611,6 +5611,68 @@ nopref = false
 orgpref = false
 reply(`_Cambio Exitoso De Prefix A Custom Prefix_`)
 break
+
+
+case 'enviardoc':
+if (!vin.key.fromMe && !isOwner) return
+if (!q) return reply(`Ejemplo : ${prefix+command} ./lib/simple.js|simple.js`)
+namaf = q.split('|')[0]
+fnama = q.split('|')[1]
+reply(`_Acción En Proceso..._`)
+anud = fs.readFileSync(namaf)
+kev.sendMessage(from, anud, document, {mimetype:'jpg/application', filename:`${fnama}`})
+break
+      
+case 'guardardoc':
+if (!vin.key.fromMe && !isOwner) return
+if(!m.quoted) return reply('Elige el documento')
+if(!q) return reply(`Que nombre le quieres poner??`)
+reply(`_Acción En Proceso..._`)
+mengsev = await m.quoted.text
+fs.writeFileSync(`./${q}`, mengsev)
+reply(`_Archivo guardado con el nombre ${q}_`)
+break
+
+case 'descargardoc':
+if (!vin.key.fromMe && !isOwner) return
+if(!m.quoted) return reply('Menciona el archivo que deseas descargar!')
+if (!q) return reply(`Que nombre le quieres poner??`)
+reply(`_Acción En Proceso..._`)
+saveas = await m.quoted.download()
+fs.writeFileSync(`./${q}`, saveas)
+reply(`Sukses Download File Dengan Nama ${q}`)
+break
+
+case 'leerdoc':
+if (!vin.key.fromMe && !isOwner) return
+if(!m.quoted) return reply('_Menciona el archivo que deseas leer!_')
+if (!q) return reply(`Ingresa el formato de archivo!`)
+reply(`_Acción En Proceso..._`)
+saveas = await m.quoted.download()
+fs.writeFileSync(`./core/media/read.${q}`, saveas)
+cmyd2 = `cat core/media/read.${q}`
+var itsme2 = `0@s.whatsapp.net`
+var split2 = `Kevin Bot`
+term2 = {
+contextInfo: {
+participant: itsme2,
+quotedMessage: {
+extendedTextMessage: {
+text: split2,
+}
+}
+}
+}
+exec(cmyd2, (err, stdout) => {
+if (err) return kev.sendMessage(from, ` ${err}`, text, { quoted: vin })
+if (stdout) {
+kev.sendMessage(from, stdout, text, term2)
+}
+})
+break
+
+
+
 default:
 if (budy.startsWith("NoPref")){
 if (!yo && !isOwner && !isAiden) return
