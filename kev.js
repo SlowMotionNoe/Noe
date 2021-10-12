@@ -154,47 +154,7 @@ function kyun(seconds){
 //Database
 let _scommand = JSON.parse(fs.readFileSync('./database/scommand.json'))
 
-// Sticker Cmd
-const addCmd = (id, command) => {
-    const obj = { id: id, chats: command }
-    _scommand.push(obj)
-    fs.writeFileSync('./database/scommand.json', JSON.stringify(_scommand))
-}
 
-const getCommandPosition = (id) => {
-    let position = null
-    Object.keys(_scommand).forEach((i) => {
-        if (_scommand[i].id === id) {
-            position = i
-        }
-    })
-    if (position !== null) {
-        return position
-    }
-}
-
-const getCmd = (id) => {
-    let position = null
-    Object.keys(_scommand).forEach((i) => {
-        if (_scommand[i].id === id) {
-            position = i
-        }
-    })
-    if (position !== null) {
-        return _scommand[position].chats
-    }
-}
-
-
-const checkSCommand = (id) => {
-    let status = false
-    Object.keys(_scommand).forEach((i) => {
-        if (_scommand[i].id === id) {
-            status = true
-        }
-    })
-    return status
-}
 
 // constantes
 
@@ -207,6 +167,8 @@ const checkSCommand = (id) => {
         const antifake = JSON.parse(fs.readFileSync('./src/antifake.json'));
         const antiarabes = JSON.parse(fs.readFileSync('./src/antiarabes.json'));
         const antilink = JSON.parse(fs.readFileSync("./database/antilink.json"));
+        const { addcmd, getcmd, getcmdpos } = require('../lib/setcmd')
+        stickerdb = JSON.parse(fs.readFileSync('./database/stickerdb.json'))
 //
 
 
@@ -2235,7 +2197,7 @@ case 'getmencion':
               sendBug(from)
 }
 break
-        case 'añadircmd': 
+/*        case 'añadircmd': 
         case 'setcmd':
               if (!vin.key.fromMe && !isOwner) return
               if (isQuotedSticker) {
@@ -2247,8 +2209,52 @@ break
               } else {
               reply('*tienes que mencionar un sticker...*')
 }
-              break
-       case 'delcmd':
+              break*/
+case 'añadircmd':
+if (!vin.key.fromMe && !isOwner) return
+if (isQuotedSticker) {
+if (!q) return reply(`Menciona un sticker junto a el comando ${command} más el comando que quieres que haga, ejemplo: *${prefix}${command} ${prefix}runtime*`)
+var kodenya = vin.message.extendedTextMessage.contextInfo.quotedMessage.stickerMessage.fileSha256.toString('hex')
+for(let i of stickerdb){
+if(kodenya.includes(i.id)) return reply('_Sticker agregado a la base de datos._')
+}
+addcmd(kodenya, q, m.quoted.fakeObj.message, reply)
+} else {
+reply('*tienes que mencionar un sticker...*')
+}
+break
+case 'getsticker': case 'getcmd':
+if(!q) return reply(`Ejemplo : ${prefix + command} ${prefix}menu`)
+anu = [];
+for(let i=0; i<stickerdb.length; i++){
+if(stickerdb[i].cmd === q){
+anu.push(i)
+}
+}
+console.log(anu)
+if(anu === undefined) return reply(`_El sticker con el comando *${q}* no está en la base de datos_`)
+for(let i of anu){
+pogon = await kev.prepareMessageFromContent(from, stickerdb[i].sticker, {quoted: vin})
+kev.relayWAMessage(pogon)
+}
+break
+case 'eliminarcmd':
+case 'delcmd':{
+if (!vin.key.fromMe && !isOwner) return
+//if (!isQuotedSticker) return reply(`reply stickernya`)
+var kodenya = sen.message.extendedTextMessage.contextInfo.quotedMessage.stickerMessage.fileSha256.toString('hex')
+diti = [];
+for(let i of stickerdb){
+    diti.push(i.id)
+}
+if(!kodenya.includes(diti)) return reply('_El sticker ha sido eliminado de la base de datos_')
+del = await getcmdpos(kodenya)
+stickerdb.splice(del, 1)
+await fs.writeFileSync('./database/stickerdb.json', JSON.stringify(stickerdb))
+reply("_Listo._")
+}
+break
+       /*case 'delcmd':
        case 'eliminarcmd':
               if (!vin.key.fromMe && !isOwner) return
               if (!isQuotedSticker) return reply(`Para eliminar un sticker solo mencionalo junto al comando: ${command}`)
@@ -2256,17 +2262,16 @@ break
              _scommand.splice(getCommandPosition(kodenya), 1)
               fs.writeFileSync('./database/scommand.json', JSON.stringify(_scommand))
               reply("_*Acción exitosa*_")
-              break
+              break*/
        case 'listcmd':
        case 'listacmd':
               if (!isGroup && !vin.key.fromMe)return reply('_Lo lamento, el bot no tiene permitodo usar sus comandos en chats privados, intentalo de nuevo pero dentro de algún grupo._')
               teksnyee = `_*❛ Comandos Por Stickers ❜*_\n\n`
               cemde = [];
-              for (let i of _scommand) {
-              //cemde.push(i.id)
+              for (let i of stickerdb) {
               teksnyee += `_⎔ Id: *${i.id}*_
 
-_⎔ Acción De Id: *${i.chats}*_ \n\n`}
+_⎔ Acción De Id: *${i.cmd}*_ \n\n`}
               teksnyee += `\n*❛ Powered By Kevin _@${sendc.split("@s.whatsapp.net")[0]} ❜_*`
 loc = {
             "degreesLatitude": 0,
@@ -2283,8 +2288,6 @@ loc = {
             "locationMessage": loc,
             quoted: null
             }, MessageType.buttonsMessage, {sendEphemeral: true, contextInfo: {mentionedJid: [sendc]}})
-//kev.sendMessage(from, teksnyee.trim(), text, {quoted: fakesticker, contextInfo: {forwardingScore: 9999, isForwarded: true}})
-              //vero(teksnyee, cemde, true)
               break
 case 'tamaño':
 if (!isGroup && !vin.key.fromMe)return reply('_Lo lamento, el bot no tiene permitodo usar sus comandos en chats privados, intentalo de nuevo pero dentro de algún grupo._')
