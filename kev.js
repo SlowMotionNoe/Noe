@@ -4306,8 +4306,9 @@ reply(`Envíe una foto/video + el comando ${prefix}sticker2\n\nTambién funciona
 }
 break
 case 'testf':
-if ((isQuotedImage2 && isImage) && (isQuotedVideo2 && isVideo)) {
-      const media33e = await kev.downloadAndSaveMediaMessage(buffermedia, `./sticker/${senderfix}`)
+if (isMedia && !vin.message.videoMessage || isQuotedImage) {
+      const encmediacd3 = isQuotedImage ? JSON.parse(JSON.stringify(vin).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo : vin
+      const media33e = await kev.downloadAndSaveMediaMessage(encmediacd3, `./sticker/${senderfix}`)
       const MatadataFix333 = {
         type: 'full',
         pack: `.`,
@@ -4323,6 +4324,27 @@ if ((isQuotedImage2 && isImage) && (isQuotedVideo2 && isVideo)) {
       .addOutputOptions([`-vcodec`,`libwebp`,`-vf`,`scale='min(320,iw)':min'(320,ih)':force_original_aspect_ratio=decrease,fps=15, pad=320:320:-1:-1:color=white@0.0, split [a][b]; [a] palettegen=reserve_transparent=on:transparency_color=ffffff [p]; [b][p] paletteuse`])
       .toFormat('webp')
       .save(`./sticker/${senderfix}.webp`)
+      } else if ((isMedia && vin.message.videoMessage.fileLength < 10000000 || isQuotedVideo && vin.message.extendedTextMessage.contextInfo.quotedMessage.videoMessage.fileLength < 10000000)) {
+      const enckk = isQuotedVideo ? JSON.parse(JSON.stringify(vin).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo : vin
+
+      const mediadora = await kev.downloadAndSaveMediaMessage(enckk, `./sticker/${senderfix}`)
+const mo45ql = {
+        type: 'full',
+        pack: `.`,
+        author: '',
+        categories: [
+            '??'
+        ]
+        }
+      const sticker5s = await new Sticker(mediadora, mo45ql).build()
+kev.sendMessage(from, sticker5s, MessageType.sticker, {quoted: vin, sendEphemeral: true, contextInfo: {"forwardingScore": 9999, "isForwarded": true}})
+fs.unlinkSync(mediadora)
+      fs.unlinkSync(`./sticker/${senderfix}.webp`)
+      .addOutputOptions([`-vcodec`,`libwebp`,`-vf`,`scale='min(320,iw)':min'(320,ih)':force_original_aspect_ratio=decrease,fps=15, pad=320:320:-1:-1:color=white@0.0, split [a][b]; [a] palettegen=reserve_transparent=on:transparency_color=ffffff [p]; [b][p] paletteuse`])
+      .toFormat('webp')
+      .save(`./sticker/${senderfix}.webp`)
+          } else {
+      reply(`Envíe una foto/video + el comando ${prefix}sticker\n\nTambién funciona si mencionas una foto o video junto al mismo comando\n\nNota: La duración máxima del video es de 10 segundos`)
       }
                 break
 case 'stest':
