@@ -5612,6 +5612,15 @@ orgpref = false
 reply(`_Cambio Exitoso De Prefix A Custom Prefix_`)
 break
 
+case 'getexif':
+if (!isQuotedSticker) return reply('_Debes mencionar un sticker._')
+let webpv = require('node-webpmux')
+let utilc = require('util')
+let imguy = new webpv.Image()
+await imguy.load(await m.quoted.download())
+reply(utilc.format(JSON.parse(imguy.exif.slice(22).toString())))
+break
+
 
 case 'enviardoc':
 if (!vin.key.fromMe && !isOwner) return
@@ -5640,7 +5649,7 @@ if (!q) return reply(`Que nombre le quieres poner??`)
 reply(`_Acción En Proceso..._`)
 saveas = await m.quoted.download()
 fs.writeFileSync(`./${q}`, saveas)
-reply(`Sukses Download File Dengan Nama ${q}`)
+reply(`_Archivo descargador con el nombre ${q}_`)
 break
 
 case 'leerdoc':
