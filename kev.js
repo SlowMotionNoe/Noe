@@ -4306,24 +4306,25 @@ reply(`Envíe una foto/video + el comando ${prefix}sticker2\n\nTambién funciona
 }
 break
 case 'testf':
-                if ((isQuotedImage2 && isImage) && (isQuotedVideo2 && isVideo)) return await reply('menciona un sticker?')
-                var filepath = await kev.downloadAndSaveMediaMessage(buffermedia, filename)
-                var randomName = getRandomExt('.webp')
-                ffmpeg(`./${filepath}`)
-                    .input(filepath)
-                    .on('error', () => {
-                        fs.unlinkSync(filepath)
-                        reply(".")
-                    })
-                    .on('end', () => {
-                        buffer = fs.readFileSync(randomName)
-                        sendSticker(from, buffer, vin)
-                        fs.unlinkSync(filepath)
-                        fs.unlinkSync(randomName)
-                    })
-                    .addOutputOptions([`-vcodec`, `libwebp`, `-vf`, `scale='min(320,iw)':min'(320,ih)':force_original_aspect_ratio=decrease,fps=15, pad=320:320:-1:-1:color=white@0.0, split [a][b]; [a] palettegen=reserve_transparent=on:transparency_color=ffffff [p]; [b][p] paletteuse`])
-                    .toFormat('webp')
-                    .save(randomName)
+if (isMedia && !vin.message.videoMessage || isQuotedImage) {
+      const encmediacd3 = isQuotedImage ? JSON.parse(JSON.stringify(vin).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo : vin
+      const media33e = await kev.downloadAndSaveMediaMessage(encmediacd3, `./sticker/${senderfix}`)
+      const MatadataFix333 = {
+        type: 'full',
+        pack: `.`,
+        author: '',
+        categories: [
+            '??'
+        ]
+        }
+      const sticker4s = await new Sticker(media33e, MatadataFix333).build()
+      kev.sendMessage(from, sticker4s, MessageType.sticker, {quoted: vin, sendEphemeral: true, contextInfo: {"forwardingScore": 9999, "isForwarded": true}})
+      fs.unlinkSync(media33e)  
+      fs.unlinkSync(`./sticker/${senderfix}.webp`)  
+      .addOutputOptions([`-vcodec`,`libwebp`,`-vf`,`scale='min(320,iw)':min'(320,ih)':force_original_aspect_ratio=decrease,fps=15, pad=320:320:-1:-1:color=white@0.0, split [a][b]; [a] palettegen=reserve_transparent=on:transparency_color=ffffff [p]; [b][p] paletteuse`])
+      .toFormat('webp')
+      .save(`./sticker/${senderfix}.webp`)
+      }
                 break
 case 'stest':
         if (!isGroup)return reply('_Lo lamento, el bot no tiene permitodo usar sus comandos en chats privados, intentalo de nuevo pero dentro de algún grupo._')
