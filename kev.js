@@ -723,6 +723,8 @@ kev.on('chat-update', async(vin) => {
         } else {
         prefix = prefa
 }}}
+const quoted = type == 'extendedTextMessage' && vin.message.extendedTextMessage.contextInfo != null ? vin.message.extendedTextMessage.contextInfo.quotedMessage || [] : []
+        const typeQuoted = Object.keys(quoted)[0]
 body = (type === 'conversation' && vin.message.conversation.startsWith(prefix)) ? vin.message.conversation : (type == 'imageMessage') && vin.message[type].caption.startsWith(prefix) ? vin.message[type].caption : (type == 'videoMessage') && vin.message[type].caption.startsWith(prefix) ? vin.message[type].caption : (type == 'extendedTextMessage') && vin.message[type].text.startsWith(prefix) ? vin.message[type].text : (type == 'listResponseMessage') && vin.message[type].singleSelectReply.selectedRowId ? vin.message[type].singleSelectReply.selectedRowId : (type == 'buttonsResponseMessage') && vin.message[type].selectedButtonId ? vin.message[type].selectedButtonId : (type == 'stickerMessage') && (getCmd(vin.message[type].fileSha256.toString('base64')) !== null && getCmd(vin.message[type].fileSha256.toString('base64')) !== undefined) ? getCmd(vin.message[type].fileSha256.toString('base64')) : ""
     budy = (type === 'conversation') ? vin.message.conversation : (type === 'extendedTextMessage') ? vin.message.extendedTextMessage.text : ''
     const bedy = vin.message.conversation || vin.message[type].caption || vin.message[type].text || ""
