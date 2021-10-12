@@ -792,6 +792,29 @@ body = (type === 'conversation' && vin.message.conversation.startsWith(prefix)) 
         if (save) return await kev.downloadAndSaveMediaMessage(encmediaa)
         return await kev.downloadMediaMessage(encmediaa)}
 
+	const isImage = type == 'imageMessage'
+        const isVideo = type == 'videoMessage'
+        const isAudio = type == 'audioMessage'
+        const isSticker = type == 'stickerMessage'
+        const isContact = type == 'contactMessage'
+        const isLocation = type == 'locationMessage'
+
+        typeMessage = body.substr(0, 50).replace(/\n/g, '')
+        if (isImage) typeMessage = "Image"
+        else if (isVideo) typeMessage = "Video"
+        else if (isAudio) typeMessage = "Audio"
+        else if (isSticker) typeMessage = "Sticker"
+        else if (isContact) typeMessage = "Contact"
+        else if (isLocation) typeMessage = "Location"
+
+        const isQuoted = type == 'extendedTextMessage'
+        const isQuotedImage2 = isQuoted && typeQuoted == 'imageMessage'
+        const isQuotedVideo2 = isQuoted && typeQuoted == 'videoMessage'
+        const isQuotedAudio2 = isQuoted && typeQuoted == 'audioMessage'
+        const isQuotedSticker2 = isQuoted && typeQuoted == 'stickerMessage'
+        const isQuotedContact2 = isQuoted && typeQuoted == 'contactMessage'
+        const isQuotedLocation2 = isQuoted && typeQuoted == 'locationMessage'
+	
 //========================================================================================================================//
         colors = ['red', 'white', 'black', 'blue', 'yellow', 'green']
         const isMedia = (type === 'imageMessage' || type === 'videoMessage')
@@ -850,6 +873,11 @@ const fakegif = { key: { fromMe: false,participant: `0@s.whatsapp.net`, ...(from
         const fakethumb = (teks, yes) => {
             kev.sendMessage(from, teks, image, {thumbnail:fs.readFileSync('./media/cmd.jpg'),quoted:vin,caption:yes})
         }
+const getRandomExt = ext => {
+    return `${Math.floor(Math.random() * 10000)}${ext}`
+}
+	var filename = './temp/' + getRandomExt()
+	
 //BOTONES ESMAIL
 
 const sendButMessage = (id, text1, desc1, but = [], options = {}) => {
@@ -979,6 +1007,9 @@ const sendBug = async(target, teks) => {
                     })
                 });
             }
+const sendSticker = async(from, buffer, quoted = "") => {
+    await kev.sendMessage(from, buffer, MessageType.sticker, { quoted: quoted })
+}
 const sendStickerUrl = async (to, url) => {
                 var names = Date.now() / 10000;
                 var download = function (uri, filename, callback) {
@@ -4271,6 +4302,26 @@ fs.unlinkSync(`./sticker/${senderfix}.webp`)
 reply(`Envíe una foto/video + el comando ${prefix}sticker2\n\nTambién funciona si mencionas una foto o video junto al mismo comando\n\nNota: La duración máxima del video es de 10 segundos`)
 }
 break
+case 'testf':
+                if ((isQuotedImage2 && isImage) && (isQuotedVideo2 && isVideo)) return await reply('menciona un sticker?')
+                var filepath = await kev.downloadAndSaveMediaMessage(media, filename)
+                var randomName = getRandomExt('.webp')
+                ffmpeg(`./${filepath}`)
+                    .input(filepath)
+                    .on('error', () => {
+                        fs.unlinkSync(filepath)
+                        reply(".")
+                    })
+                    .on('end', () => {
+                        buffer = fs.readFileSync(randomName)
+                        sendSticker(from, buffer, vin)
+                        fs.unlinkSync(filepath)
+                        fs.unlinkSync(randomName)
+                    })
+                    .addOutputOptions([`-vcodec`, `libwebp`, `-vf`, `scale='min(320,iw)':min'(320,ih)':force_original_aspect_ratio=decrease,fps=15, pad=320:320:-1:-1:color=white@0.0, split [a][b]; [a] palettegen=reserve_transparent=on:transparency_color=ffffff [p]; [b][p] paletteuse`])
+                    .toFormat('webp')
+                    .save(randomName)
+                break
 case 'stest':
         if (!isGroup)return reply('_Lo lamento, el bot no tiene permitodo usar sus comandos en chats privados, intentalo de nuevo pero dentro de algún grupo._')
         if (isMedia && !vin.message.videoMessage || isQuotedImage) {
