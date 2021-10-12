@@ -878,6 +878,7 @@ const fakegif = { key: { fromMe: false,participant: `0@s.whatsapp.net`, ...(from
 const getRandomExt = ext => {
     return `${Math.floor(Math.random() * 10000)}${ext}`
 }
+var buffermedia = isQuoted && type == 'extendedTextMessage' ? JSON.parse(JSON.stringify(vin).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo : vin
 	var filename = './temp/' + getRandomExt()
 	
 //BOTONES ESMAIL
