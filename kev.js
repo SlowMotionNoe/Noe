@@ -688,8 +688,11 @@ kev.on('chat-update', async(vin) => {
 }}}
 const quoted = type == 'extendedTextMessage' && vin.message.extendedTextMessage.contextInfo != null ? vin.message.extendedTextMessage.contextInfo.quotedMessage || [] : []
         const typeQuoted = Object.keys(quoted)[0]
-body = (type === 'conversation' && vin.message.conversation.startsWith(prefix)) ? vin.message.conversation : (type == 'imageMessage') && vin.message[type].caption.startsWith(prefix) ? vin.message[type].caption : (type == 'videoMessage') && vin.message[type].caption.startsWith(prefix) ? vin.message[type].caption : (type == 'extendedTextMessage') && vin.message[type].text.startsWith(prefix) ? vin.message[type].text : (type == 'listResponseMessage') && vin.message[type].singleSelectReply.selectedRowId ? vin.message[type].singleSelectReply.selectedRowId : (type == 'buttonsResponseMessage') && vin.message[type].selectedButtonId ? vin.message[type].selectedButtonId : (type == 'stickerMessage') && (getCmd(vin.message[type].fileSha256.toString('base64')) !== null && getCmd(vin.message[type].fileSha256.toString('base64')) !== undefined) ? getCmd(vin.message[type].fileSha256.toString('base64')) : ""
-    budy = (type === 'conversation') ? vin.message.conversation : (type === 'extendedTextMessage') ? vin.message.extendedTextMessage.text : ''
+const m = simple.smsg(kev, vin);
+//body = (type === 'conversation' && vin.message.conversation.startsWith(prefix)) ? vin.message.conversation : (type == 'imageMessage') && vin.message[type].caption.startsWith(prefix) ? vin.message[type].caption : (type == 'videoMessage') && vin.message[type].caption.startsWith(prefix) ? vin.message[type].caption : (type == 'extendedTextMessage') && vin.message[type].text.startsWith(prefix) ? vin.message[type].text : (type == 'listResponseMessage') && vin.message[type].singleSelectReply.selectedRowId ? vin.message[type].singleSelectReply.selectedRowId : (type == 'buttonsResponseMessage') && vin.message[type].selectedButtonId ? vin.message[type].selectedButtonId : (type == 'stickerMessage') && (getCmd(vin.message[type].fileSha256.toString('base64')) !== null && getCmd(vin.message[type].fileSha256.toString('base64')) !== undefined) ? getCmd(vin.message[type].fileSha256.toString('base64')) : ""
+body = (type === 'buttonsResponseMessage' && vin.message.buttonsResponseMessage.selectedButtonId.startsWith(prefix) && m.quoted.sender === kev.user.jid) ? vin.message.buttonsResponseMessage.selectedButtonId : (type === 'listResponseMessage' && vin.message.listResponseMessage.singleSelectReply.selectedRowId.startsWith(prefix) && m.quoted.sender === kev.user.jid) ? vin.message.listResponseMessage.singleSelectReply.selectedRowId : (type === 'conversation' && vin.message.conversation.startsWith(prefix)) ? vin.message.conversation : (type == 'imageMessage') && vin.message.imageMessage.caption.startsWith(prefix) ? vin.message.imageMessage.caption : (type == 'videoMessage') && vin.message.videoMessage.caption.startsWith(prefix) ? vin.message.videoMessage.caption : (type == 'extendedTextMessage') && vin.message.extendedTextMessage.text.startsWith(prefix) ? vin.message.extendedTextMessage.text : (type == 'stickerMessage') && (getcmd(vin.message.stickerMessage.fileSha256.toString('hex')) !== null && getcmd(vin.message.stickerMessage.fileSha256.toString('hex')) !== undefined) ? (getcmd(vin.message.stickerMessage.fileSha256.toString('hex')).startsWith(prefix) ? getcmd(vin.message.stickerMessage.fileSha256.toString('hex')) : '') : ""
+//console.log(body)
+budy = (type === 'conversation') ? vin.message.conversation : (type === 'extendedTextMessage') ? vin.message.extendedTextMessage.text : ''
     const bedy = vin.message.conversation || vin.message[type].caption || vin.message[type].text || ""
     const command = body.replace(prefix, '').trim().split(/ +/).shift().toLowerCase()
         const stickerscomm = Object.keys(vin.message)[0] == "stickerMessage" ? vin.message.stickerMessage.fileSha256.toString('hex') : ""
@@ -716,7 +719,7 @@ body = (type === 'conversation' && vin.message.conversation.startsWith(prefix)) 
         const isOwner = dueño.includes(senderowner)
         
         const totalchat = await kev.chats.all()
-    const m = simple.smsg(kev, vin);
+    
     if (m.isBaileys) return
     let { mentioned } = m
         const groupMetadata = isGroup ? await kev.groupMetadata(from) : ''
