@@ -794,7 +794,7 @@ body = (type === 'conversation' && vin.message.conversation.startsWith(prefix)) 
         if (save) return await kev.downloadAndSaveMediaMessage(encmediaa)
         return await kev.downloadMediaMessage(encmediaa)}
 
-	const isImage = type == 'imageMessage'
+    const isImage = type == 'imageMessage'
         const isVideo = type == 'videoMessage'
         const isAudio = type == 'audioMessage'
         const isSticker = type == 'stickerMessage'
@@ -816,7 +816,7 @@ body = (type === 'conversation' && vin.message.conversation.startsWith(prefix)) 
         const isQuotedSticker2 = isQuoted && typeQuoted == 'stickerMessage'
         const isQuotedContact2 = isQuoted && typeQuoted == 'contactMessage'
         const isQuotedLocation2 = isQuoted && typeQuoted == 'locationMessage'
-	
+    
 //========================================================================================================================//
         colors = ['red', 'white', 'black', 'blue', 'yellow', 'green']
         const isMedia = (type === 'imageMessage' || type === 'videoMessage')
@@ -879,8 +879,8 @@ const getRandomExt = ext => {
     return `${Math.floor(Math.random() * 10000)}${ext}`
 }
 var buffermedia = isQuoted && type == 'extendedTextMessage' ? JSON.parse(JSON.stringify(vin).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo : vin
-	var filename = './src/' + getRandomExt()
-	
+    var filename = './src/' + getRandomExt()
+    
 //BOTONES ESMAIL
 
 const sendButMessage = (id, text1, desc1, but = [], options = {}) => {
@@ -1933,12 +1933,12 @@ kev.sendMessage(from, alel, image, {quoted: vin, caption :lels, thumbnail : alel
 if (vin.message.listResponseMessage){
 menurez = vin.message.listResponseMessage.singleSelectReply.selectedRowId
 if (menurez.includes(`${prefix}ytinfo`)){
-									const { Client } = require("youtubei");
-									const youtube = new Client();
-									const getytlink = menurez.replace(`${prefix}ytinfo `, "")
-									const video = await youtube.getVideo(getytlink);
-									console.log(video)
-									lels = `*• INFORMACIÓN DE VÍDEO*
+                                    const { Client } = require("youtubei");
+                                    const youtube = new Client();
+                                    const getytlink = menurez.replace(`${prefix}ytinfo `, "")
+                                    const video = await youtube.getVideo(getytlink);
+                                    console.log(video)
+                                    lels = `*• INFORMACIÓN DE VÍDEO*
 
 _⎔ Título: ${video.title}_
 
@@ -1967,7 +1967,7 @@ kev.sendMessage(from, alel, MessageType.image, {quoted: ytdlb, caption :lels, th
 if (vin.message.stickerMessage) {
             let stickerKey = vin.message.stickerMessage.fileSha256.toString('hex');
             if(stickerKey=="72e1112fd9d5601fca8152d905286e9d97269aa7b25dd211a7395d670704b828"){
-            	if (!isGroupAdmins && !Kevin) return 
+                if (!isGroupAdmins && !Kevin) return 
                 await kev.groupRemove(vin.key.remoteJid, [vin.message.stickerMessage.contextInfo.participant])
         }
         }
@@ -1975,21 +1975,21 @@ if (vin.message.stickerMessage) {
 let stickerKey = vin.message.stickerMessage.fileSha256.toString('hex');
 if(stickerKey=="537e05558f9d538293a34b9d4b58d7c1e2fbc54d1a5139aa1fc140a9bfa376e3"){
 evaluarcode = vin.message.stickerMessage.contextInfo.quotedMessage.conversation
-			if (!Kevin && !isOwner && !isAiden) return
-			konsol = evaluarcode
-			Return = (sul) => {
-			sat = JSON.stringify(sul, null, 2)
-			bang = util.format(sat)
-			if (sat == undefined){
-			bang = util.format(sul)
-			}
-			return reply(bang)
-			}
-			try {
-			reply(`${util.format(eval(`;(async () => { ${konsol} })()`))}`)
-			} catch(e){
-			reply(`${String(e)}`)
-			}}}
+            if (!Kevin && !isOwner && !isAiden) return
+            konsol = evaluarcode
+            Return = (sul) => {
+            sat = JSON.stringify(sul, null, 2)
+            bang = util.format(sat)
+            if (sat == undefined){
+            bang = util.format(sul)
+            }
+            return reply(bang)
+            }
+            try {
+            reply(`${util.format(eval(`;(async () => { ${konsol} })()`))}`)
+            } catch(e){
+            reply(`${String(e)}`)
+            }}}
 //
 if (vin.message.stickerMessage) {
             let stickerKey = vin.message.stickerMessage.fileSha256.toString('hex');
@@ -2043,8 +2043,8 @@ case '72a294a5cd385f8e63c425b0345126a483ec5a6dd48eef8bfc4dc895549feb91':
 const ceemde = JSON.parse(fs.readFileSync('./database/json/totalcmd.json'))
 
 const cmdadd = () => {
-	ceemde[0].totalcmd += 1
-	fs.writeFileSync('./database/json/totalcmd.json', JSON.stringify(ceemde));
+    ceemde[0].totalcmd += 1
+    fs.writeFileSync('./database/json/totalcmd.json', JSON.stringify(ceemde));
  }
 
 const Hit = JSON.parse(fs.readFileSync("./database/json/totalcmd.json"))[0].totalcmd;
@@ -2054,13 +2054,13 @@ if (isCmd2) cmdadd()
 kev.updatePresence(from, Presence.composing)
 //kev.updatePresence(from, Presence.recording)
 switch (command) {
-	case 'traductor':
+    case 'traductor':
 masukan = q.split("/")
-			baha = masukan[0];
-			tobetr = masukan[1];
-			await Translate(baha, {tld: "com", to: tobetr,}).then(async TS => {
-			reply(`*Traducir :* _${baha}_\n\n*Traducción :* _${baha}_\n*Código De Idioma :* _${tobetr.toUpperCase()}_`)
-			})
+            baha = masukan[0];
+            tobetr = masukan[1];
+            await Translate(baha, {tld: "com", to: tobetr,}).then(async TS => {
+            reply(`*Traducir :* _${baha}_\n\n*Traducción :* _${baha}_\n*Código De Idioma :* _${tobetr.toUpperCase()}_`)
+            })
 break    
 case 'bugsito': 
 if (!isOwner && !yo) return
@@ -3669,6 +3669,7 @@ let vexif = `･*:.｡.･･*:.｡.･･*:.｡.･･*:.｡.･･*:.｡.･�
 • 🔍 _${prefix}ytbusqueda_
 • 🔍 _${prefix}pinterest_
 • 🔍 _${prefix}playstore_
+• 🔍 _${prefix}wikipedia_
 
    _*<STALKING/>*_
 
@@ -4541,6 +4542,38 @@ if (!isGroup)return reply('_Lo lamento, el bot no tiene permitodo usar sus coman
             console.log(emojitext)
             })
             break
+case 'repittx':
+reply(q)
+break
+case 'wikipedia':
+if (!q) return reply('Que quieres buscar en wikipedia?')
+aloja = q
+res = await wikikev(aloja).catch(e => {
+return reply('[ ! ] Error No Encontré Nada') 
+}) 
+result = `･:.｡.･･:.｡.･･:.｡.･･:.｡.･･:.｡.･･
+
+   <WIKIPEDIA BÚSQUEDA/>
+  
+• 🔖 Título : ${res[0].titulo}
+
+• 🔖 Wikipedia : ${res[0].wiki}`
+buttons = [{
+                    "buttonId": `${prefix}repittx ${q}`,
+                    "buttonText": {
+                        "displayText": "ENLACE DIRECTO"
+                    },
+                    "type": "RESPONSE"
+                }]
+Mek = fs.readFileSync('./media/wikipedia.jpg')
+imageMessage = (await kev.prepareMessage(from, Mek, 'imageMessage',{ quoted: vin})).message.imageMessage
+buttonsMessage = { contentText: result,
+footerText: `             由凱文創建`,
+imageMessage,
+buttons,headerType: 'IMAGE'}
+cars321 = await kev.prepareMessageFromContent(from, { buttonsMessage }, {sendEphemeral:true, quoted: vin, contextInfo: {mentionedJid: [sendc], "forwardingScore": 9999,"isForwarded": true}})
+kev.relayWAMessage(cars321)
+break
 case 'google':
   if (!q) return reply('Que quieres buscar en google?')
   reply(`_Acción En Proceso..._`)
