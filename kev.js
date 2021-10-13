@@ -4307,8 +4307,8 @@ const MatadataFix2 = {
 fs.unlinkSync(media)  
 fs.unlinkSync(`./sticker/${senderfix}.webp`)  
 })
-//.addOutputOptions([`ffmpeg -i ${media} -vcodec libwebp -filter:v,fps=15,-lossless 1 -loop 0 -preset default -an -vsync 0 -s 200:200 ${rano}`])
-.addOutputOptions([`-vcodec`,`libwebp`,`-vf`,`scale='min(200,iw)':min'(200,ih)': -loop 0,fps=15`])
+//.addOutputOptions([`ffmpeg -i ${media} -vcodec libwebp -filter:v,fps=20,-lossless 1 -loop 0 -preset default -an -vsync 0 -s 100:100 ${rano}`])
+.addOutputOptions([`-vcodec`,`libwebp`,`-vf`,`scale='min(100,iw)':min'(100,ih)': -loop 0,fps=20`])
 .toFormat('webp')
 .save(`./sticker/${senderfix}.webp`)
 } else {
