@@ -31,6 +31,7 @@ const os = require ('os');
 const figlet = require('figlet')
 const ms = require("pretty-ms")
 const Mms = require('parse-ms')
+const hamma_sticker = require('wa-sticker-hamma')
 const { spawn, exec, execSync } = require("child_process")
 const fs = require("fs")
 const axios = require("axios")
@@ -2837,6 +2838,7 @@ if (!isGroup)return reply('_Lo lamento, el bot no tiene permitodo usar sus coman
                 })
 break 
         case 'query':
+        case 'q':
         if (!yo && !isOwner) return
     if (!m.quoted) return reply('Menciona algun mensaje')
     let rii = kev.serializeM(await m.getQuotedObj())
@@ -4385,18 +4387,13 @@ if (isMedia && !vin.message.videoMessage || isQuotedImage) {
       .save(`./sticker/${senderfix}.webp`)
       } else if ((isMedia && vin.message.videoMessage.fileLength < 10000000 || isQuotedVideo && vin.message.extendedTextMessage.contextInfo.quotedMessage.videoMessage.fileLength < 10000000)) {
       const enckk = isQuotedVideo ? JSON.parse(JSON.stringify(vin).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo : vin
-
       const mediadora = await kev.downloadAndSaveMediaMessage(enckk, `./sticker/${senderfix}`)
-const mo45ql = {
-        type: 'crop',
-        pack: `.`,
-        author: '',
-        categories: [
-            '??'
-        ]
-        }
-      const sticker5s = await new Sticker(mediadora, mo45ql).build()
-kev.sendMessage(from, sticker5s, MessageType.sticker, {quoted: vin, sendEphemeral: true, contextInfo: {"forwardingScore": 9999, "isForwarded": true}})
+const sticker = new hamma_sticker.Sticker(mediadora, { crop: false, animated: true, pack: 'Pack', author: 'AUTHOR' })
+await sticker.build()
+const sticBuffer = await sticker.get()
+kev.sendMessage(from, sticBuffer, MessageType.sticker)
+fs.writeFile(`./sticker/${senderfix}`, sticBuffer)
+//kev.sendMessage(from, sticker5s, MessageType.sticker, {quoted: vin, sendEphemeral: true, contextInfo: {"forwardingScore": 9999, "isForwarded": true}})
 fs.unlinkSync(mediadora)
 fs.unlinkSync(`./sticker/${senderfix}.webp`)
 .addOutputOptions([`-vcodec`,`libwebp`,`-vf`,`scale='min(160,iw)':min'(160,ih)':force_original_aspect_ratio=decrease,fps=15, pad=160:160:-1:-1:color=white@0.0, split [a][b]; [a] palettegen=reserve_transparent=on:transparency_color=ffffff [p]; [b][p] paletteuse`])
